@@ -1,0 +1,30 @@
+/* Keyframes for wave effect */
+
+  
+
+  
+  .mainpage8 {
+    width: 100%;
+    height: 85vh;
+    padding-top: 80px;
+    
+  
+  
+  .inner-page-8 {
+    max-width: 600px;
+    margin: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+  
+   p {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 27px;
+    animation: slideInFromBottom 0.5s ease-out forwards;
+ 
+  }
+}
+}

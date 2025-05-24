@@ -1,0 +1,60 @@
+.category-section {
+    width: 100%;
+    margin-top: 30px;
+  
+    h4 {
+   
+      color: #333;
+      text-align: left;
+      margin-bottom: 30px;
+      padding-left: 30px;
+      font-size: 25px;
+    }
+  
+    .category-content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); // Creates 3 equal-width columns
+      gap: 0; // No gap between items
+      max-width: 100%;
+      height: auto; // Allow height to adjust based on content
+  
+      .category-item {
+        height: 300px; // Default height for larger screens
+        background-size: cover; // Ensures the image covers the div
+        background-position: center; // Centers the image within the div
+        background-repeat: no-repeat; // Prevents repeating the image
+        overflow: hidden; // Hides overflow content
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+      
+        font-size: 18px;
+        font-weight: bold;
+        padding: 20px;
+        box-sizing: border-box;
+        position: relative;
+        transition: opacity 0.4s ease;
+  
+        &:hover {
+          opacity: 0.8;
+        }
+  
+        p {
+          margin: 0;
+        }
+      }
+    }
+  
+    @media (max-width: 534px) {
+      .category-content {
+        grid-template-columns: 1fr; // Stack items in one column on smaller screens
+      }
+  
+      .category-item {
+        height: 200px; // Adjust height for smaller screens
+      }
+    }
+  }
+  

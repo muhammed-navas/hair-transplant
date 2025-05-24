@@ -1,0 +1,126 @@
+.section-5 {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+
+
+  .content {
+    flex: 1;
+    padding: 20px 30px;
+
+    h2 {
+      color: #252525;
+    
+    }
+
+    p {
+       margin: 14px 0;
+      color: #333;
+      line-height: 25px;
+    }
+
+    button {
+      background-color: #000000;
+        color: #ddd;
+ 
+      border: 1px solid #252525;
+      padding: 10px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background-color 0.5s ease;
+
+      svg {
+        margin-left: 10px;
+      }
+      &:hover{
+        color: #252525;
+        background-color: #ffffff;
+      }
+    }
+  }
+
+  .carousel-container {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+    width: 70%;
+    height: auto;
+border: none;
+    .carousel-item {
+      padding: 0 10px;
+      text-align: center;
+      border: none;
+      img {
+        width: 100%;
+        height: 100%;
+     
+      }
+
+      p {
+        margin-top: 10px;
+      }
+    }
+
+    .progress-bar {
+      width: 98%;
+      height: 5px;
+     
+      background-color: #ddd;
+ margin: auto;
+      position: relative;
+    border-radius: 100px;
+
+      .progress-bar-inner {
+        height: 100%;
+        background-color: #252525;
+        border-radius: 100px;
+        transition: width 0.5s ease-in-out;
+      }
+    }
+
+    .custom-prev-button,
+    .custom-next-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+
+      color: #000000;
+      z-index: 1;
+    }
+
+    .custom-prev-button {
+      left: 30px;
+   
+      color: #000000;
+    }
+
+    .custom-next-button {
+      right: 30px;
+  
+      color: #000000;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .content, .carousel-container {
+      text-align: left;
+      width: 100%;
+    }
+
+    .carousel-container {
+      padding-top: 20px;
+    }
+  }
+}

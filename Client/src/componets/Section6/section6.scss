@@ -1,0 +1,53 @@
+.section6 {
+    width: 100%;
+    height: 80vh;
+    background-image: url('https://www.aesop.com/u1nb1km7t5q7/61gV0rM4sLwBqXyEFtqhvN/d7d8b9ceb6e64c4b155c33ae879f2dd4/Aesop_Always_On_Homepage_Secondary_Simple_Skin_Care_Mid_Desktop_2560x1440px.jpg');
+    background-size: cover;
+    background-position: center right;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    justify-content: space-between;
+  }
+  
+  .content {
+  
+    padding: 20px;
+    text-align: left; /* Default alignment for larger screens */
+    max-width: 400px;
+    color: rgb(0, 0, 0);
+  }
+  
+  .content h1 {
+    font-size: 2.1rem;
+    margin-bottom: 10px;
+    color: rgb(0, 0, 0);
+  
+  }
+  
+  .content p {
+    font-size: 1rem;
+    
+    line-height: 22px;
+    color: #000000;
+  }
+  
+  @media (max-width: 768px) {
+  
+    
+    .content {
+      text-align: center; /* Center alignment for smaller screens */
+      max-width: 100%;
+      padding: 10px;
+      
+    }
+  
+    .content h1 {
+      font-size: 1.5rem;
+    }
+  
+    .content p {
+      font-size: 0.9rem;
+    }
+  }
+  

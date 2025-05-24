@@ -1,0 +1,70 @@
+.section3-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+padding: 20px 30px;
+    max-width: 1200px;
+    margin: auto;
+   
+  
+    .left {
+      flex: 1;
+      margin-right: 20px;
+  
+      h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+
+      }
+  
+      p {
+        margin-bottom: 20px;
+     
+        line-height: 26px;
+        color: #333;
+      }
+  
+      .claim-button {
+        background-color: #000000;
+        color: #ddd;
+       
+        border: 1px solid #252525;
+        padding: 10px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: background-color 0.5s ease;
+  
+        svg {
+          margin-left: 10px;
+        }
+        &:hover{
+          background-color: #ffffff;
+          color: #252525;
+        }
+      }
+    }
+  
+    .right {
+      flex: 1;
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+
+  
+      .left, .right {
+        margin: 10px 0;
+      }
+  
+      .left {
+        margin-right: 0;
+      }
+    }
+  }
+  

@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.page1-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  width: 100%;
+
+  height: 85vh;
+
+  background: transparent;
+
+
+  box-sizing: border-box;
+  overflow: scroll; // Enable scrolling but hide scrollbars
+  position: relative;
+  animation: slideInFromBottom 0.5s ease-out forwards;
+  -ms-overflow-style: none; // Hide scrollbar in Internet Explorer and Edge
+  scrollbar-width: none; // Hide scrollbar in Firefox
+
+  // Hide scrollbars in WebKit browsers (Chrome, Safari)
+  &::-webkit-scrollbar {
+    display: none; // Hide the scrollbar
+  }
+
+  header {
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+      color: #333;
+      margin-top: 50px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .options-container {
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto; // Enable vertical scrolling
+    overflow-x: hidden; // Hide horizontal scrolling
+    -ms-overflow-style: none; // Hide scrollbar in Internet Explorer and Edge
+    scrollbar-width: none; // Hide scrollbar in Firefox
+
+    // Hide scrollbars in WebKit browsers (Chrome, Safari)
+    &::-webkit-scrollbar {
+      display: none; // Hide the scrollbar
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 25px 20px;
+      border: 1px solid #edf0f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out, background-color 0.5s ease;
+      gap: 15px;
+
+      &:hover {
+        background-color: #e6f1f3;
+      }
+      &:active {
+        transform: scale(0.95); // Scale down slightly when clicked
+      }
+
+      .circle {
+        min-width: 20px;
+        min-height: 20px;
+        border-radius: 50%;
+        border: 1.3px solid #7f8286;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        position: relative;
+
+        .tick {
+          font-size: 1.2rem;
+          color: #fff;
+          background-color: #000;
+          border-radius: 50%;
+          padding: 2px;
+        }
+      }
+
+      p {
+        margin: 0;
+        font-weight: 500;
+        color: #333;
+        font-size: 16px;
+      }
+
+      &.selected {
+        border: 1px solid #000000;
+        background-color: #eae7e5; // Light blue color for selected option
+      }
+    }
+  }
+}
