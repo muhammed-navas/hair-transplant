@@ -16,11 +16,6 @@ import { AddressForm } from './Pages/Addresspage/AddressForm';
 import './app.scss'
 import { Toaster } from 'react-hot-toast';
 function App() {
-  
-
-
-
-
 
   const Header1 = () => {
     const location = useLocation();
@@ -33,8 +28,6 @@ function App() {
       <Header1 />
       <Toaster />
       <Routes>
-     
-      
         <Route path="/" element={<Homepage />} />
         <Route path="/goals" element={<PageTransition><QuestionnairePage /></PageTransition>} />
         <Route path="/cart" element={<PageTransition><CartPage  /></PageTransition>} />
