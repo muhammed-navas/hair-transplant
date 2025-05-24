@@ -13,7 +13,8 @@ export const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
 
-  const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+  // const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+  const REACT_APP_API_DEFAULT = "http://localhost"
 
 
   const validate = () => {

@@ -29,7 +29,8 @@ export const Login = () => {
     }
   };
 
-     const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+    //  const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+       const REACT_APP_API_DEFAULT = "http://localhost";
 
   const validate = () => {
     let tempErrors = {};

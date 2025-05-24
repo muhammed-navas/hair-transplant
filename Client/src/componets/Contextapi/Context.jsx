@@ -35,7 +35,8 @@ export const Apiprovider = ({ children }) => {
   const [allCartData, setAllCartData] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
 
-  const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+  // const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+  const REACT_APP_API_DEFAULT = "http://localhost:5000"
 
   const fetchCart = async () => {
     try {
