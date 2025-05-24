@@ -13,6 +13,7 @@ import { body } from "express-validator";
 
 
 export const signup = async (req, res, next) => {
+  console.log(req.body,'body')
   try {
     const { firstName, lastName, email, password } = req.body;
 
