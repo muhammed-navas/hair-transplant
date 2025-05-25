@@ -119,6 +119,7 @@ export const Apiprovider = ({ children }) => {
     <ContextApi.Provider value={{
       setShowOtpModal,
       otp,
+      showOtpModal,
       forgetEmail,
       handleOtpSubmit,
       formData,

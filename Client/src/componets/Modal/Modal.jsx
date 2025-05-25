@@ -13,15 +13,11 @@ export const Modal = () => {
     const handleOtpChange = (e) => {
         const value = e.target.value
         if (value.length === 4){
-          console.log(value,"value");
-          
           setOtpAllow(true)
        }else{
           setOtpAllow(false)
        }
         setOtp(e.target.value);
-        console.log(otp,"otp");
-       
       };
 
 

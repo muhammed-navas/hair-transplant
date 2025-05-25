@@ -8,7 +8,14 @@ import { Modal } from '../../componets/Modal/Modal';
 import toast from 'react-hot-toast';
 
 export const SignUpPage = () => {
-  const { setShowOtpModal, showOtpModal, timer, setTimer, formData, setFormData } = useContext(ContextApi);
+  const {
+    setShowOtpModal,
+    showOtpModal,
+    timer,
+    setTimer,
+    formData,
+    setFormData,
+  } = useContext(ContextApi);
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
@@ -81,6 +88,8 @@ export const SignUpPage = () => {
     }
   }, [showOtpModal, timer, setTimer]);
 
+  console.log(showOtpModal, "modal");
+
   return (
     <div className="signup-container">
       <div className="signup-box">
@@ -96,7 +105,9 @@ export const SignUpPage = () => {
               onChange={handleChange}
               required
             />
-            {errors.firstName && <span className="error">{errors.firstName}</span>}
+            {errors.firstName && (
+              <span className="error">{errors.firstName}</span>
+            )}
           </div>
 
           <div className="input-group">
@@ -143,7 +154,9 @@ export const SignUpPage = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
-            {errors.password && <span className="error">{errors.password}</span>}
+            {errors.password && (
+              <span className="error">{errors.password}</span>
+            )}
           </div>
 
           <div className="input-group">
@@ -156,16 +169,20 @@ export const SignUpPage = () => {
               onChange={handleChange}
               required
             />
-            {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+            {errors.confirmPassword && (
+              <span className="error">{errors.confirmPassword}</span>
+            )}
           </div>
 
-          <button type="submit" className="submit-btn">Sign Up</button>
+          <button type="submit" className="submit-btn">
+            Sign Up
+          </button>
         </form>
         <p className="account-redirect">
           Already have an account? <a href="/login">Login</a>
         </p>
       </div>
-      {showOtpModal && <Modal/>}
+      {showOtpModal && <Modal />}
     </div>
   );
 };
