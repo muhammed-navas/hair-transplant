@@ -16,6 +16,7 @@ import { AddressForm } from './Pages/Addresspage/AddressForm';
 import './app.scss'
 import { Toaster } from 'react-hot-toast';
 import AdminDashboard from './Pages/admin/AdminDashboard';
+import ProfilePage from './Pages/profile/Profile';
 function App() {
 
   const Header1 = () => {
@@ -24,24 +25,101 @@ function App() {
   };
 
   return (
-    <div className='root'>
- 
+    <div className="root">
       <Header1 />
       <Toaster />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/goals" element={<PageTransition><QuestionnairePage /></PageTransition>} />
-        <Route path="/cart" element={<PageTransition><CartPage  /></PageTransition>} />
-        <Route path="/products" element={<PageTransition><Allproduct  /></PageTransition>} />
-        <Route path="/signup" element={<PageTransition><SignUpPage /></PageTransition>} />
-        <Route path='/login' element={<PageTransition><Login /></PageTransition>} />
-        <Route path='/forgot' element={<PageTransition><Forgetpass /></PageTransition>} />
-        <Route path='/changepassword' element={<PageTransition><Changepass /></PageTransition>} />
-        <Route path="/product/:id" element={<PageTransition><ProductPage /></PageTransition>} />
-        <Route path="/addressform" element={<PageTransition><AddressForm/></PageTransition>} />
-        <Route path="/admin" element={<PageTransition><AdminDashboard/></PageTransition>} />
+        <Route
+          path="/goals"
+          element={
+            <PageTransition>
+              <QuestionnairePage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PageTransition>
+              <CartPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <PageTransition>
+              <Allproduct />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PageTransition>
+              <SignUpPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PageTransition>
+              <Login />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PageTransition>
+              <ProfilePage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/forgot"
+          element={
+            <PageTransition>
+              <Forgetpass />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/changepassword"
+          element={
+            <PageTransition>
+              <Changepass />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <PageTransition>
+              <ProductPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/addressform"
+          element={
+            <PageTransition>
+              <AddressForm />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <PageTransition>
+              <AdminDashboard />
+            </PageTransition>
+          }
+        />
       </Routes>
-      </div>
+    </div>
   );
 }
 
