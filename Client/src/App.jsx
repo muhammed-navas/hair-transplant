@@ -15,6 +15,7 @@ import { axiosInterceptorPage } from './componets/Interceptor/interceptor';
 import { AddressForm } from './Pages/Addresspage/AddressForm';
 import './app.scss'
 import { Toaster } from 'react-hot-toast';
+import AdminDashboard from './Pages/admin/AdminDashboard';
 function App() {
 
   const Header1 = () => {
@@ -38,6 +39,7 @@ function App() {
         <Route path='/changepassword' element={<PageTransition><Changepass /></PageTransition>} />
         <Route path="/product/:id" element={<PageTransition><ProductPage /></PageTransition>} />
         <Route path="/addressform" element={<PageTransition><AddressForm/></PageTransition>} />
+        <Route path="/admin" element={<PageTransition><AdminDashboard/></PageTransition>} />
       </Routes>
       </div>
   );

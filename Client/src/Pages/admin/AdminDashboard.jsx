@@ -90,10 +90,10 @@ const AdminDashboard = () => {
 
   return (
     <div className="adminDashboard">
-      <div className="dashboardHeader">
+      {/* <div className="dashboardHeader">
         <h1 className="title">Admin Dashboard</h1>
         <p className="subtitle">Manage your products</p>
-      </div>
+      </div> */}
 
       <div className="productFormContainer">
         <div className="productFormBox">
@@ -103,7 +103,7 @@ const AdminDashboard = () => {
             <div className="successMessage">{successMessage}</div>
           )}
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="productForm">
             <div className="inputGroup">
               <label htmlFor="name" className="label">
                 Product Name
@@ -121,6 +121,22 @@ const AdminDashboard = () => {
             </div>
 
             <div className="inputGroup">
+              <label htmlFor="image" className="label">
+                Image URL
+              </label>
+              <input
+                type="url"
+                name="image"
+                id="image"
+                value={formData.image}
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+                className="input"
+              />
+              {errors.image && <span className="error">{errors.image}</span>}
+            </div>
+
+            <div className="inputGroup">
               <label htmlFor="description" className="label">
                 Description
               </label>
@@ -135,22 +151,6 @@ const AdminDashboard = () => {
               {errors.description && (
                 <span className="error">{errors.description}</span>
               )}
-            </div>
-
-            <div className="inputGroup">
-              <label htmlFor="image" className="label">
-                Image URL
-              </label>
-              <input
-                type="url"
-                name="image"
-                id="image"
-                value={formData.image}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg"
-                className="input"
-              />
-              {errors.image && <span className="error">{errors.image}</span>}
             </div>
 
             <div className="inputGroup">
@@ -190,3 +190,6 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
+
+// A premium, medically-approved solution for permanent hair restoration. Ideal for individuals experiencing hair thinning or pattern baldness. Delivers natural-looking results using advanced FUE or FUT techniques. Boosts self-esteem and appearance with minimal downtime and long-term benefits.

@@ -4,22 +4,40 @@ import CustomError from "../utils/customError.js";
 
 
 
-export const addProduct = async (req, res) => {
+export const addProduct = async (req, res,next) => {
     try {
         console.log("req.body:",req.body)
-        const { name, description, price } = req.body;
-        
+        console.log("req.file:",req.file)
+        const { name, description, price, image } = req.body;
 
-        if (!name || !description || !price ) {
-            return next(new CustomError("all fields required", 400));
+        if (!name || !description || !price) {
+          return next(new CustomError("All fields are required", 400));
         }
 
-        if (!req.file) {
-            return next(new CustomError("image is required", 400));
+        let imageUrl;
+
+        // Check if file is uploaded
+        if (req.file) {
+          console.log("Processing uploaded file");
+          console.log("req.file.buffer:", req.file.buffer);
+          imageUrl = await uploadIcon(req.file.buffer);
+        }
+        // Check if image URL is provided in body
+        else if (image && typeof image === "string" && image.trim()) {
+          console.log("Using provided image URL");
+          imageUrl = image.trim();
+        }
+        // No image provided at all
+        else {
+          return next(
+            new CustomError(
+              "Image is required (either upload a file or provide image URL)",
+              400
+            )
+          );
         }
 
-        const imageUrl = await uploadIcon(req.file.buffer);
-
+        console.log("Final imageUrl:", imageUrl);
         
         const newProduct = new Product({
             name,
