@@ -19,7 +19,18 @@ app.use(express.json());
 //     methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'], 
 //     credentials: true 
 // }));
-app.use(cors());
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    exposedHeaders: ["Authorization"],
+  })
+);
 
 app.use(session({
     secret: 'trifolix',

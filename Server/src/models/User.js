@@ -1,6 +1,6 @@
 import mongoose, { mongo }  from "mongoose";
 
-const userSchema=new mongoose.Schema({
+const userSchema =new mongoose.Schema({
     firstName:{
         type:String,
         required:[true,'Please add a first name']

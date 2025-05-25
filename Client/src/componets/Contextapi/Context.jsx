@@ -10,6 +10,7 @@ export const ContextApi = createContext();
 export const Apiprovider = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+
   const axiosInstance = axiosInterceptorPage();
 
   const [otp, setOtp] = useState('');
@@ -38,29 +39,45 @@ export const Apiprovider = ({ children }) => {
   // const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
   const REACT_APP_API_DEFAULT = "http://localhost:5000"
 
+  useEffect(() => {
+    const access = localStorage.getItem('accessToken');
+    if (access) {
+      fetchCart();
+      setUserAuth(true); // true
+    }
+  }, []);
+
+  const getUserData = async () => {
+    try {
+      console.log('userdata ')
+      const access = localStorage.getItem("accessToken");
+      if(access){
+        const response = await axiosInstance.get(
+          `${REACT_APP_API_DEFAULT}/api/user/user-data`
+        );
+        console.log("User Data:", response.data, "user data");
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+    }
+  };
+
   const fetchCart = async () => {
     try {
-      console.log("inside cart 1");
-      const access = localStorage.getItem('accessToken');
+      const access = localStorage.getItem("accessToken");
       if (access) {
-        const response = await axiosInstance.get(`${REACT_APP_API_DEFAULT}/api/user/cart`);
+        const response = await axiosInstance.get(
+          `${REACT_APP_API_DEFAULT}/api/user/cart`
+        );
+        console.log(response.data,'cart &&&&');
         setAllCartData(response.data.cartData.items);
         setTotalPrice(response.data.cartData.cartTotal);
         setCartLength(response.data.cartData.items.length);
-        console.log("inside cart 2");
       }
     } catch (error) {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    const access = localStorage.getItem('accessToken');
-    if (access) {
-      fetchCart();
-      setUserAuth(true);
-    }
-  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -115,35 +132,40 @@ export const Apiprovider = ({ children }) => {
     }
   };
 
+
+
   return (
-    <ContextApi.Provider value={{
-      setShowOtpModal,
-      otp,
-      showOtpModal,
-      forgetEmail,
-      handleOtpSubmit,
-      formData,
-      setFormData,
-      setOtp,
-      otpAllow,
-      setOtpAllow,
-      timer,
-      setTimer,
-      setForgetEmail,
-      handleResendOtp,
-      setUserAuth,
-      userAuth,
-      isSignup,
-      setSignup,
-      fetchProducts,
-      products,
-      handleAddToCart,
-      addedToCart,
-      allCartData,
-      fetchCart,
-      totalPrice,
-      cartLength,
-    }}>
+    <ContextApi.Provider
+      value={{
+        setShowOtpModal,
+        otp,
+        showOtpModal,
+        forgetEmail,
+        handleOtpSubmit,
+        formData,
+        setFormData,
+        setOtp,
+        otpAllow,
+        setOtpAllow,
+        timer,
+        setTimer,
+        setForgetEmail,
+        handleResendOtp,
+        setUserAuth,
+        userAuth,
+        isSignup,
+        setSignup,
+        fetchProducts,
+        products,
+        handleAddToCart,
+        addedToCart,
+        allCartData,
+        fetchCart,
+        totalPrice,
+        cartLength,
+        getUserData,
+      }}
+    >
       {children}
     </ContextApi.Provider>
   );

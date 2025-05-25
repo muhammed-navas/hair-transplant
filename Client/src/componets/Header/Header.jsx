@@ -14,7 +14,7 @@ export const Header = ({ visible }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedNavItem, setSelectedNavItem] = useState('home');
   const headerRef = useRef(null);
-  const { setUserAuth, userauth ,cartlength} = useContext(ContextApi);
+  const { setUserAuth, userAuth, cartLength } = useContext(ContextApi);
   const location = useLocation();
   const navigate = useNavigate();
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -28,8 +28,9 @@ export const Header = ({ visible }) => {
 
   // const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
   const REACT_APP_API_DEFAULT = "http://localhost:5000";
-  
+
   useEffect(() => {
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
@@ -49,9 +50,9 @@ export const Header = ({ visible }) => {
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, headerHeight]);
 
 
@@ -111,11 +112,12 @@ export const Header = ({ visible }) => {
     }
   };
 
+
   return (
     <>
-       {visible && (
-        <div className='header-container' ref={headerRef}>
-          <div className='header-wrapper'>
+      {visible && (
+        <div className="header-container" ref={headerRef}>
+          <div className="header-wrapper">
             <HeaderContent
               isHidden={isHidden}
               isSticky={isSticky}
@@ -125,8 +127,8 @@ export const Header = ({ visible }) => {
               handleNavClick={handleNavClick}
               handlelogout={handlelogout}
               setUserAuth={setUserAuth}
-              userauth={userauth}
-              cartlength={cartlength}
+              userauth={userAuth}
+              cartlength={cartLength}
               isActive={isActive}
             />
           </div>

@@ -6,6 +6,7 @@ const AdminDashboard = () => {
     name: "",
     description: "",
     image: "",
+    stock:0,
     price: "",
   });
 
@@ -34,6 +35,7 @@ const AdminDashboard = () => {
     if (!formData.description.trim())
       newErrors.description = "Description is required";
     if (!formData.image.trim()) newErrors.image = "Image URL is required";
+    if (!formData.stock) newErrors.stock = "stock is required";
     if (!formData.price.trim()) {
       newErrors.price = "Price is required";
     } else if (isNaN(formData.price) || parseFloat(formData.price) <= 0) {
@@ -54,6 +56,7 @@ const AdminDashboard = () => {
       const productData = {
         name: formData.name.trim(),
         description: formData.description.trim(),
+        stock: parseFloat(formData.stock),
         image: formData.image.trim(),
         price: parseFloat(formData.price),
       };
@@ -72,7 +75,7 @@ const AdminDashboard = () => {
       if (response.ok) {
         const result = await response.json();
         setSuccessMessage("Product added successfully!");
-        setFormData({ name: "", description: "", image: "", price: "" });
+        setFormData({ name: "", description: "", image: "", price: "" , stock:"" });
         console.log("Product added:", result);
       } else {
         const errorData = await response.json();
@@ -153,22 +156,41 @@ const AdminDashboard = () => {
               )}
             </div>
 
-            <div className="inputGroup">
-              <label htmlFor="price" className="label">
-                Price ($)
-              </label>
-              <input
-                type="number"
-                name="price"
-                id="price"
-                value={formData.price}
-                onChange={handleChange}
-                placeholder="0.00"
-                step="0.01"
-                min="0"
-                className="input"
-              />
-              {errors.price && <span className="error">{errors.price}</span>}
+            <div>
+              <div className="inputGroup">
+                <label htmlFor="price" className="label">
+                  Stock (how many product Stock )
+                </label>
+                <input
+                  type="number"
+                  name="stock"
+                  id="stock"
+                  value={formData.stock}
+                  onChange={handleChange}
+                  placeholder="0"
+                  step="0.01"
+                  min="0"
+                  className="input"
+                />
+                {errors.stock && <span className="error">{errors.stock}</span>}
+              </div>
+              <div className="inputGroup">
+                <label htmlFor="price" className="label">
+                  Price ($)
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                  className="input"
+                />
+                {errors.price && <span className="error">{errors.price}</span>}
+              </div>
             </div>
 
             {errors.submit && (

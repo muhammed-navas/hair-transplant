@@ -1,5 +1,6 @@
 import axios from "axios";
-const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+// const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+const REACT_APP_API_DEFAULT = "http://localhost:5000"
 export const axiosInterceptorPage = () => {
   const axiosInstance = axios.create({
     baseURL: REACT_APP_API_DEFAULT,

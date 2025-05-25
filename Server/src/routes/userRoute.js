@@ -1,11 +1,12 @@
 import {Router} from "express";
-import { addToCart, getProductData,getCartData, checking,removeFromCart,increaseQuantity, decreaseQuantity, addAddress, verifyOtp, resendOtp } from "../controllers/userController.js";
+import { addToCart, getProductData,getCartData, checking,removeFromCart,increaseQuantity, decreaseQuantity, addAddress, verifyOtp, resendOtp, getUserData } from "../controllers/userController.js";
 import { authenticate } from "../middlewares/authMiddleware.js";
 
 
 
 const userRouter=Router();
 
+userRouter.get("/user-data",getUserData)
 userRouter.get("/product-data",getProductData);
 
 userRouter.post("/addToCart",authenticate,addToCart);

@@ -8,9 +8,9 @@ export const addProduct = async (req, res,next) => {
     try {
         console.log("req.body:",req.body)
         console.log("req.file:",req.file)
-        const { name, description, price, image } = req.body;
+        const { name, description, price,stock, image } = req.body;
 
-        if (!name || !description || !price) {
+        if (!name || !description || !price || !stock) {
           return next(new CustomError("All fields are required", 400));
         }
 
@@ -18,13 +18,10 @@ export const addProduct = async (req, res,next) => {
 
         // Check if file is uploaded
         if (req.file) {
-          console.log("Processing uploaded file");
-          console.log("req.file.buffer:", req.file.buffer);
           imageUrl = await uploadIcon(req.file.buffer);
         }
         // Check if image URL is provided in body
         else if (image && typeof image === "string" && image.trim()) {
-          console.log("Using provided image URL");
           imageUrl = image.trim();
         }
         // No image provided at all
@@ -42,6 +39,7 @@ export const addProduct = async (req, res,next) => {
         const newProduct = new Product({
             name,
             description,
+            stock,
             price,
             image: imageUrl
         });

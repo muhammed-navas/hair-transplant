@@ -13,6 +13,7 @@ import {
   LogOut,
 } from "lucide-react";
 import "./profile.scss";
+import { axiosInterceptorPage } from "../../componets/Interceptor/interceptor";
 
 const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -27,6 +28,8 @@ const ProfilePage = () => {
   });
 
   const [editData, setEditData] = useState({ ...profileData });
+
+  const axiosInstance = axiosInterceptorPage();
 
   // Sample recent order data
   const [recentOrders] = useState([
@@ -53,13 +56,16 @@ const ProfilePage = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/user/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editData),
-      });
+      const response = await axiosInstance.post(
+        "http://localhost:5000/api/user/profile",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editData),
+        }
+      );
 
       if (response.ok) {
         setProfileData({ ...editData });

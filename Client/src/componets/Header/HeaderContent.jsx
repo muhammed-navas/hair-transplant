@@ -23,6 +23,7 @@ export const HeaderContent = ({
   const path = location.pathname;
   const currentNavItem = path === '/' ? 'home' : path.substring(1); // Adjust for the root path
 
+
   return (
     <header
       ref={headerRef}
@@ -51,18 +52,10 @@ export const HeaderContent = ({
           >
             Products
           </Link>
-          {!userauth ? (
+          {!userauth && (
             <Link to="/login" className="nav-link">
               Login
             </Link>
-          ) : (
-            <a
-              style={{ cursor: "pointer" }}
-              onClick={handlelogout}
-              className="nav-link"
-            >
-              Logout
-            </a>
           )}
           <Link
             to="/cart"

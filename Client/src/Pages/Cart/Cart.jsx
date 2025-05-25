@@ -6,7 +6,7 @@ import { ContextApi } from '../../componets/Contextapi/Context';
 import { axiosInterceptorPage } from '../../componets/Interceptor/interceptor';
 import { useNavigate } from 'react-router-dom';
 
-const CartItem = ({ id, name, price, quantity, increaseCartItemQuantity, decreaseCartItemQuantity, onRemove }) => {
+const CartItem = ({ id, name, price,img, quantity, increaseCartItemQuantity, decreaseCartItemQuantity, onRemove }) => {
   const handleIncrease = () => {
     if (quantity < 5) {
       const newQuantity = quantity + 1;
@@ -23,18 +23,30 @@ const CartItem = ({ id, name, price, quantity, increaseCartItemQuantity, decreas
 
   return (
     <div className="cart-item">
+      <img style={{width:"80px",height:"60px",objectFit:"contain",marginRight:"10px"}} src={img} alt="" />
       <p className="cart-item__name">{name}</p>
       <div className="cart-item__quantity-control">
-        <button onClick={handleDecrease} disabled={quantity === 1} className="cart-item__button">
+        <button
+          onClick={handleDecrease}
+          disabled={quantity === 1}
+          className="cart-item__button"
+        >
           <Minus className="cart-item__icon" />
         </button>
         <span className="cart-item__quantity">{quantity}</span>
-        <button onClick={handleIncrease} disabled={quantity === 5} className="cart-item__button">
+        <button
+          onClick={handleIncrease}
+          disabled={quantity === 5}
+          className="cart-item__button"
+        >
           <Plus className="cart-item__icon" />
         </button>
       </div>
       <span className="cart-item__price">${price}</span>
-      <button onClick={() => onRemove(id)} className="cart-item__button cart-item__button--remove">
+      <button
+        onClick={() => onRemove(id)}
+        className="cart-item__button cart-item__button--remove"
+      >
         <Trash2 className="cart-item__icon" />
       </button>
     </div>
@@ -47,22 +59,24 @@ export const CartPage = () => {
   const axiosInstance = axiosInterceptorPage();
  const naviagte = useNavigate()
 
-    const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+    // const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
+      const REACT_APP_API_DEFAULT = "http://localhost:5000";
 
   useEffect(() => {
   
-
-    
     if (allCartData) {
       const formattedItems = allCartData.map(item => ({
         id: item.product._id,
         name: item.product.name,
+        image:item.image,
         price: item.itemTotal,
         quantity: item.quantity,
       }));
       setItems(formattedItems);
     }
   }, [allCartData]);
+
+
 
   const increaseCartItemQuantity = async (productId, newQuantity) => {
     try {
@@ -128,6 +142,7 @@ export const CartPage = () => {
               <CartItem
                 key={item.id}
                 id={item.id}
+                img={item.image}
                 name={item.name}
                 price={item.price}
                 quantity={item.quantity}
