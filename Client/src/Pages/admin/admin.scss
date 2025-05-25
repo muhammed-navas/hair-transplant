@@ -1,0 +1,120 @@
+.adminDashboard {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  
+    .dashboardHeader {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px;
+    }
+  
+    .title {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+  
+    .subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin: 0;
+    }
+  
+    .productFormContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      .productFormBox {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+  
+        .formTitle {
+          font-size: 1.5rem;
+          color: #333;
+          margin-bottom: 30px;
+          text-align: center;
+          font-weight: 600;
+        }
+  
+        .inputGroup {
+          margin-bottom: 20px;
+  
+          .label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+            font-weight: 500;
+          }
+  
+          .input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+          }
+  
+          .textarea {
+            resize: vertical;
+            min-height: 100px;
+          }
+  
+          .error {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+          }
+        }
+  
+        .errorMessage {
+          background-color: #fee;
+          color: #e74c3c;
+          padding: 10px;
+          border-radius: 6px;
+          margin-bottom: 20px;
+          border: 1px solid #fcc;
+        }
+  
+        .successMessage {
+          background-color: #efe;
+          color: #27ae60;
+          padding: 10px;
+          border-radius: 6px;
+          margin-bottom: 20px;
+          border: 1px solid #cfc;
+        }
+  
+        .submitBtn {
+          width: 100%;
+          padding: 14px;
+          background-color: #333;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+  
+          &.submitBtnDisabled {
+            background-color: #999;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+  
