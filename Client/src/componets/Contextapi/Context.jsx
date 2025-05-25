@@ -69,7 +69,6 @@ export const Apiprovider = ({ children }) => {
         const response = await axiosInstance.get(
           `${REACT_APP_API_DEFAULT}/api/user/cart`
         );
-        console.log(response.data,'cart &&&&');
         setAllCartData(response.data.cartData.items);
         setTotalPrice(response.data.cartData.cartTotal);
         setCartLength(response.data.cartData.items.length);

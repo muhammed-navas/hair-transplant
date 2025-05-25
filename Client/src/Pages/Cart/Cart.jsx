@@ -6,29 +6,69 @@ import { ContextApi } from '../../componets/Contextapi/Context';
 import { axiosInterceptorPage } from '../../componets/Interceptor/interceptor';
 import { useNavigate } from 'react-router-dom';
 
-const CartItem = ({ id, name, price,img, quantity, increaseCartItemQuantity, decreaseCartItemQuantity, onRemove }) => {
+const CartItem = ({
+  id,
+  name,
+  price,
+  img,
+  quantity,
+  stock,
+  increaseCartItemQuantity,
+  decreaseCartItemQuantity,
+  onRemove,
+}) => {
+  const [disableButtons, setDisableButtons] = useState(false);
+  const [disableButtons1, setDisableButtons1] = useState(false);
+
   const handleIncrease = () => {
-    if (quantity < 5) {
+    if (quantity < stock) {
       const newQuantity = quantity + 1;
       increaseCartItemQuantity(id, newQuantity);
+      setDisableButtons(true);
     }
   };
 
   const handleDecrease = () => {
+    console.log(quantity,'---')
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       decreaseCartItemQuantity(id, newQuantity);
+      setDisableButtons1(true);
+    }else{
+      onRemove(id)
+
     }
+    
   };
+
+  // Auto-enable buttons after 1 second
+  useEffect(() => {
+    if (disableButtons || disableButtons1) {
+      const timer = setTimeout(() => {
+        setDisableButtons(false);
+        setDisableButtons1(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [disableButtons, disableButtons1]);
 
   return (
     <div className="cart-item">
-      <img style={{width:"80px",height:"60px",objectFit:"contain",marginRight:"10px"}} src={img} alt="" />
+      <img
+        style={{
+          width: "80px",
+          height: "60px",
+          objectFit: "contain",
+          marginRight: "10px",
+        }}
+        src={img}
+        alt={name}
+      />
       <p className="cart-item__name">{name}</p>
       <div className="cart-item__quantity-control">
         <button
           onClick={handleDecrease}
-          disabled={quantity === 1}
+          disabled={disableButtons1 || quantity <= 0}
           className="cart-item__button"
         >
           <Minus className="cart-item__icon" />
@@ -36,7 +76,7 @@ const CartItem = ({ id, name, price,img, quantity, increaseCartItemQuantity, dec
         <span className="cart-item__quantity">{quantity}</span>
         <button
           onClick={handleIncrease}
-          disabled={quantity === 5}
+          disabled={disableButtons || quantity >= stock}
           className="cart-item__button"
         >
           <Plus className="cart-item__icon" />
@@ -69,6 +109,7 @@ export const CartPage = () => {
         id: item.product._id,
         name: item.product.name,
         image:item.image,
+        stock:item.stock,
         price: item.itemTotal,
         quantity: item.quantity,
       }));
@@ -105,11 +146,7 @@ export const CartPage = () => {
       const response = await axiosInstance.delete(`${REACT_APP_API_DEFAULT}/api/user/remove-item`, {
         data: { productId },
       });
-      console.log(response.data,"response data");
-      
-      fetchCart();
-      console.log("called");
-      
+      fetchCart()
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }
@@ -120,6 +157,7 @@ export const CartPage = () => {
   }
 
   const shippingFee = 40;
+
 
   return (
     <div className="cart-page">
@@ -143,6 +181,7 @@ export const CartPage = () => {
                 key={item.id}
                 id={item.id}
                 img={item.image}
+                stock={item.stock}
                 name={item.name}
                 price={item.price}
                 quantity={item.quantity}

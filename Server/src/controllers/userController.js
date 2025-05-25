@@ -84,7 +84,8 @@ export const addToCart = async (req, res, next) => {
         product: productId,
         quantity,
         itemTotal: productStock.price * quantity,
-        image: productStock.image, // ✅ make sure to set this
+        image: productStock.image, 
+        stock:productStock.stock
       });
     }
 
@@ -229,7 +230,7 @@ export const increaseQuantity = async (req, res, next) => {
       return next(new CustomError("Product not found in cart", 404));
     }
 
-    const stock = await Stock.findOne({ product: productId });
+    const stock = await Product.findById( productId );
     if (!stock) {
       return next(new CustomError("Stock information not found", 404));
     }
@@ -287,7 +288,7 @@ export const decreaseQuantity = async (req, res, next) => {
       );
     }
 
-    const stock = await Stock.findOne({ product: productId });
+    const stock = await Product.findById(productId);
     if (!stock) {
       return next(new CustomError("Stock information not found", 404));
     }
@@ -320,7 +321,6 @@ export const addAddress = async (req, res, next) => {
       mobilePhone,
       landmark,
     } = req.body;
-    console.log("landMark:", landmark);
 
     if (
       !email ||
@@ -333,12 +333,12 @@ export const addAddress = async (req, res, next) => {
     ) {
       return next(new CustomError("All fields required", 400));
     }
+
     const userId = req.user.id;
     if (!userId) {
       return next(new CustomError("userId required", 404));
     }
     const { otp, otpExpiry } = generateOtp();
-    console.log("otppppppppppp:", otp);
     const key = uuidv4();
 
     const pendingAddress = {
@@ -357,8 +357,9 @@ export const addAddress = async (req, res, next) => {
     };
     req.session.pendingAddress = pendingAddress;
     console.log("req.session.pendingAddress:", req.session.pendingAddress);
+    console.log("1");
     await sendOtpMob(mobilePhone, otp);
-
+    console.log("2");
     res.status(200).json({
       success: true,
       message: "OTP sent successfully. Please verify to add the address",

@@ -123,12 +123,8 @@ export const AddressForm = () => {
   
     const newErrors = validateFormData();
   
-    // Log errors to verify their values
-    console.log("Validation Errors:", newErrors);
-  
     if (Object.values(newErrors).every((err) => err === '')) {
       try {
-        console.log("Sending API request with data:", formData);
         const response = await axiosInstance.post('http://localhost:5000/api/user/add-address', formData);
         console.log("API response data:", response.data);
         setIsOtpModalOpen(true);

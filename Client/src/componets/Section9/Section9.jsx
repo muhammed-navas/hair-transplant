@@ -12,9 +12,6 @@ export const ProductSection2 = () => {
 
   // Create a set of product IDs already in the cart for quick lookup
   const cartProductIds = new Set(allCartData.map(item => item.product._id));
-    
-  console.log(allCartData,"data");
-  console.log(products,"products");
   
 
   const handleAddToCartClick = async (productId) => {
