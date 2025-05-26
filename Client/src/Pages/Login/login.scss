@@ -124,6 +124,27 @@
           background-color: #000;
         }
       }
+      .button1[type="submit"] {
+        width: 100%;
+        padding: 12px 0;
+        margin-top: 10px;
+        background-color: #292929;
+        color: #fff;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 12px;
+        gap:10px;
+        font-weight: 600;
+        transition: background-color 0.3s;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #000;
+        }
+      }
 
       .already-account {
         text-align: center;
@@ -169,6 +190,13 @@
 
       button[type="submit"] {
         font-size: 12px;
+      }
+
+      .button1[type="submit"] {
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .already-account {

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ContextApi } from '../../componets/Contextapi/Context';
 import { toast, Toaster } from 'react-hot-toast';
+import google from '../../assets/google.png'
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -71,13 +72,17 @@ export const Login = () => {
     navigate('/forgot');
   };
 
+  const handleGoogleSignIn = () => {
+    window.location.href = "http://localhost:5000/api/auth/google";
+  };
+
   return (
-    <div className='outer-main'>
-       {/* This will render the toast notifications */}
-      <div className='form-main-div'>
+    <div className="outer-main">
+      {/* This will render the toast notifications */}
+      <div className="form-main-div">
         <h2>Login</h2>
-        <div className='inside-form-div'>
-          <div className='input'>
+        <div className="inside-form-div">
+          <div className="input">
             <input
               type="email"
               name="email"
@@ -88,7 +93,7 @@ export const Login = () => {
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
 
-          <div className='input'>
+          <div className="input">
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -96,7 +101,9 @@ export const Login = () => {
               onChange={handleChange}
             />
             <label htmlFor="password">Password</label>
-            {errors.password && <span className="error">{errors.password}</span>}
+            {errors.password && (
+              <span className="error">{errors.password}</span>
+            )}
             <button
               type="button"
               className="show-password"
@@ -106,12 +113,26 @@ export const Login = () => {
             </button>
           </div>
 
-          <div className='forget'>
-            <small onClick={handleNavigateToForgotPassword}>Forget password?</small>
+          <div className="forget">
+            <small onClick={handleNavigateToForgotPassword}>
+              Forget password?
+            </small>
           </div>
 
           <button type="submit" onClick={handleSubmit}>
             Login
+          </button>
+          <button
+            type="submit"
+            className="button1"
+            onClick={handleGoogleSignIn}
+          >
+            <img
+              style={{ width: "15px", height: "15px" }}
+              src={google}
+              alt="google"
+            />
+            Google
           </button>
 
           <p className="already-account">

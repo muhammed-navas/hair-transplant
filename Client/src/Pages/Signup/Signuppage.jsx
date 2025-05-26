@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './signuppage.scss';
+import google from '../../assets/google.png'
 
 
 import axios from 'axios';
@@ -88,7 +89,10 @@ export const SignUpPage = () => {
     }
   }, [showOtpModal, timer, setTimer]);
 
-  console.log(showOtpModal, "modal");
+  const handleGoogleSignIn = () => {
+    window.location.href = "http://localhost:5000/api/auth/google";
+  };
+
 
   return (
     <div className="signup-container">
@@ -176,6 +180,18 @@ export const SignUpPage = () => {
 
           <button type="submit" className="submit-btn">
             Sign Up
+          </button>
+          <button
+            type="submit"
+            className="submit-btn1"
+            onClick={handleGoogleSignIn}
+          >
+            <img
+              style={{ width: "15px", height: "15px" }}
+              src={google}
+              alt="google"
+            />
+            Google
           </button>
         </form>
         <p className="account-redirect">
