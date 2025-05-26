@@ -32,7 +32,7 @@ export const Allproduct = () => {
   const handleLinkClick = (e) => {
     e.preventDefault(); // Prevent default navigation
     setTimeout(() => {
-      navigate('/goals');
+      navigate("/question");
     }, 400); // 400ms delay
   };
 

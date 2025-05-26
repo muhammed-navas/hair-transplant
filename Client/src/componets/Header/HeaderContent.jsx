@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaBars } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { toast, Toaster } from 'react-hot-toast';
+import { easeIn } from 'framer-motion';
+import { ContextApi } from '../Contextapi/Context';
 
 export const HeaderContent = ({
   isHidden,
@@ -19,10 +22,23 @@ export const HeaderContent = ({
   const navigate = useNavigate();
   const location = useLocation();
 
+    const { user} = useContext(ContextApi);
+
   // Determine the selectedNavItem based on the current path
   const path = location.pathname;
   const currentNavItem = path === '/' ? 'home' : path.substring(1); // Adjust for the root path
 
+  const handleTreatment = () =>{
+    console.log(user.isQuestion, "is question");
+    if(user.isQuestion){
+      toast.success("Treatment Form Submit is Successful..!", {
+        position: "top-center",
+      });
+    }else{
+      navigate('/question')
+    }
+  }
+  console.log(userauth);
 
   return (
     <header
@@ -36,6 +52,15 @@ export const HeaderContent = ({
         <div className="nav-links">
           <Link to="/" className={currentNavItem === "home" ? "selected" : ""}>
             Home
+          </Link>
+          <Link
+            to="#"
+            onClick={handleTreatment}
+            className={`nav-link ${
+              currentNavItem === "question" ? "selected" : ""
+            }`}
+          >
+            Treatment Form
           </Link>
           {/* <Link to='#shop' className={currentNavItem === 'shop' ? 'selected' : ''} onClick={() => handleNavClick('shop')}>Shop</Link>
           <Link to='#stores' className={currentNavItem === 'stores' ? 'selected' : ''} onClick={() => handleNavClick('stores')}>Stores</Link> */}
@@ -74,7 +99,8 @@ export const HeaderContent = ({
           </Link>
 
           <Link to="/profile" className="nav-link">
-            <img style={{width:"30px",height:"30px"}}
+            <img
+              style={{ width: "30px", height: "30px" }}
               src="https://cdn-icons-png.flaticon.com/128/1144/1144709.png"
               alt="profile"
             />

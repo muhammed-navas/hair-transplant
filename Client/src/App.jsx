@@ -31,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route
-          path="/goals"
+          path="/question"
           element={
             <PageTransition>
               <QuestionnairePage />

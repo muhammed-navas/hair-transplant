@@ -33,6 +33,10 @@ const userSchema =new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    isQuestion:{
+        type:Boolean,
+        default:false
+    },
     otp:String,
     otpExpiry:{
         type:Date,

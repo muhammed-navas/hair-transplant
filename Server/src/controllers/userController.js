@@ -11,15 +11,18 @@ import User from "../models/User.js";
 
 export const getUserData = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const user = await User.findById(userId)
-      .populate("cart")
-      .populate("orders")
-      .populate("address");
+    console.log('1')
+    const user = await User.findById(req.user.id)
+    // .populate("cart")
+    // .populate("orders")
+    // .populate("address");
+    console.log('2')
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    console.log(user,'---user---')
 
     return res.status(200).json(user);
   } catch (error) {
@@ -84,8 +87,8 @@ export const addToCart = async (req, res, next) => {
         product: productId,
         quantity,
         itemTotal: productStock.price * quantity,
-        image: productStock.image, 
-        stock:productStock.stock
+        image: productStock.image,
+        stock: productStock.stock,
       });
     }
 
@@ -113,7 +116,6 @@ export const addToCart = async (req, res, next) => {
     next(error);
   }
 };
-
 
 export const getCartData = async (req, res, next) => {
   try {
@@ -187,7 +189,7 @@ export const removeFromCart = async (req, res, next) => {
       (item) => item.product.toString() === productId
     );
     if (itemIndex > -1) {
-      const stock = await Product.findById(productId );
+      const stock = await Product.findById(productId);
       stock.quantity += cart.items[itemIndex].quantity;
       await stock.save();
 
@@ -230,7 +232,7 @@ export const increaseQuantity = async (req, res, next) => {
       return next(new CustomError("Product not found in cart", 404));
     }
 
-    const stock = await Product.findById( productId );
+    const stock = await Product.findById(productId);
     if (!stock) {
       return next(new CustomError("Stock information not found", 404));
     }
@@ -432,6 +434,25 @@ export const resendOtp = async (req, res, next) => {
       success: true,
       message: "OTP sent Successfully",
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addQuestion = async (req, res, next) => {
+  try {
+    const {isCheck }= req.body;
+    if (typeof isCheck !== "boolean") {
+      return next(new CustomError("Question cannot be false", 400));
+    }
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return next(new CustomError("User not found", 404));
+    }
+    user.isQuestion = isCheck;
+
+    await user.save();
+    return res.status(201).json({ msg: "question form is success" });
   } catch (error) {
     next(error);
   }

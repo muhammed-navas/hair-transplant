@@ -22,7 +22,7 @@ export const Page8 = ({ onNext }) => {
       } else {
         console.error('onNext is not a function');    // Debugging statement
       }
-    }, 5500); // 5000 milliseconds = 5 seconds
+    }, 3000); // 5000 milliseconds = 5 seconds
 
     // Cleanup timeout if the component unmounts
     return () => clearTimeout(timer);
