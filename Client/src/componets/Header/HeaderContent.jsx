@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { FaBars } from 'react-icons/fa';
-import { IoMdClose } from 'react-icons/io';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { toast, Toaster } from 'react-hot-toast';
-import { easeIn } from 'framer-motion';
-import { ContextApi } from '../Contextapi/Context';
+import React, { useContext } from "react";
+import { FaBars } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+import { easeIn } from "framer-motion";
+import { ContextApi } from "../Contextapi/Context";
 
 export const HeaderContent = ({
   isHidden,
@@ -17,28 +17,29 @@ export const HeaderContent = ({
   handlelogout,
   userauth,
   cartlength,
-  isActive
+  isActive,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-    const { user} = useContext(ContextApi);
+  const { user } = useContext(ContextApi);
 
-  // Determine the selectedNavItem based on the current path
+  const checkToken = localStorage.getItem("accessToken");
+
+
   const path = location.pathname;
-  const currentNavItem = path === '/' ? 'home' : path.substring(1); // Adjust for the root path
+  const currentNavItem = path === "/" ? "home" : path.substring(1); 
 
-  const handleTreatment = () =>{
-    console.log(user.isQuestion, "is question");
-    if(user.isQuestion){
+  const handleTreatment = () => {
+
+    if (user.isQuestion === true) {
       toast.success("Treatment Form Submit is Successful..!", {
         position: "top-center",
       });
-    }else{
-      navigate('/question')
+    } else {
+      navigate("/question");
     }
-  }
-  console.log(userauth);
+  };
 
   return (
     <header
@@ -53,15 +54,14 @@ export const HeaderContent = ({
           <Link to="/" className={currentNavItem === "home" ? "selected" : ""}>
             Home
           </Link>
-          <Link
-            to="#"
+          <a
             onClick={handleTreatment}
             className={`nav-link ${
               currentNavItem === "question" ? "selected" : ""
             }`}
           >
             Treatment Form
-          </Link>
+          </a>
           {/* <Link to='#shop' className={currentNavItem === 'shop' ? 'selected' : ''} onClick={() => handleNavClick('shop')}>Shop</Link>
           <Link to='#stores' className={currentNavItem === 'stores' ? 'selected' : ''} onClick={() => handleNavClick('stores')}>Stores</Link> */}
         </div>
@@ -70,7 +70,7 @@ export const HeaderContent = ({
       <div className="header-right">
         <div className="user-icons">
           <Link
-            to="/Products"
+            to={checkToken && userauth ? "/Products" : "/login"}
             className={`nav-link ${
               currentNavItem === "Products" ? "selected" : ""
             }`}
@@ -83,7 +83,7 @@ export const HeaderContent = ({
             </Link>
           )}
           <Link
-            to="/cart"
+            to={checkToken && userauth ? "/cart" : "/login"}
             className={`nav-link ${
               currentNavItem === "cart" ? "selected" : ""
             }`}

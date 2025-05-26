@@ -21,7 +21,15 @@ function App() {
 
   const Header1 = () => {
     const location = useLocation();
-    return location.pathname === '/login' || location.pathname === '/changepassword' || location.pathname === '/forgot' || location.pathname === '/goals' || location.pathname === '/signup' ? <Header visible={false} /> : <Header visible={true} />;
+    return location.pathname === "/login" ||
+      location.pathname === "/changepassword" ||
+      location.pathname === "/forgot" ||
+      location.pathname === "/question" ||
+      location.pathname === "/signup" ? (
+      <Header visible={false} />
+    ) : (
+      <Header visible={true} />
+    );
   };
 
   return (

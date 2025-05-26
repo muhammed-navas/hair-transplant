@@ -49,6 +49,8 @@ export const Apiprovider = ({ children }) => {
     }
   }, []);
 
+  console.log(user,'user')
+
   const getUserData = async () => {
     try {
       const access = localStorage.getItem("accessToken");

@@ -37,6 +37,8 @@ export const QuestionnairePage = () => {
   const handlePrev = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
+    }else{
+      navigate('/')
     }
   };
 
@@ -82,13 +84,13 @@ const REACT_APP_API_DEFAULT = "http://localhost:5000"
     <div className="QuestionnairePage-main">
       <header className="header">
         <div>
-          {currentPage > 0 && (
+          {/* {currentPage > 0 && ( */}
             <div onClick={handlePrev} className="header-left">
-              <div className="back-button" onClick={handlePrev}>
+              <div className="back-button" >
                 <BiArrowBack />
               </div>
             </div>
-          )}
+          {/* // )} */}
         </div>
 
         <div className="header-right">
