@@ -8,6 +8,8 @@ import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js'
 import userRoutes from './routes/userRoute.js'
 
+import "./config/googleAuth.js";
+
 const app=express();
 dotenv.config();
 

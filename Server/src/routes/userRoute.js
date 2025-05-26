@@ -12,6 +12,7 @@ import {
   resendOtp,
   getUserData,
   addQuestion,
+  updateUserData,
 } from "../controllers/userController.js";
 import { authenticate } from "../middlewares/authMiddleware.js";
 
@@ -26,6 +27,7 @@ userRouter.post("/checking", authenticate, checking);
 userRouter.post("/add-address", authenticate, addAddress);
 userRouter.post("/verify-otp", authenticate, verifyOtp);
 userRouter.post("/resend-otp", authenticate, resendOtp);
+userRouter.put("/profile", authenticate, updateUserData);
 
 userRouter.patch("/increase-quantity", authenticate, increaseQuantity);
 userRouter.patch("/decrease-quantity", authenticate, decreaseQuantity);

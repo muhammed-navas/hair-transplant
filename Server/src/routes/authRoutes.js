@@ -8,8 +8,13 @@ import {
   login,
   logout,
   forgotPassword,
-  changePassword
+  changePassword,
+  googleCallback
 } from "../controllers/authController.js";
+import dotenv from 'dotenv'
+import passport from "passport";
+
+dotenv.config()
 
 const authRouter = Router();
 
@@ -22,6 +27,18 @@ authRouter.post("/resend-otp",resendOtp);
 authRouter.post("/forgot-password",forgotPassword);
 authRouter.post("/change-password",changePassword);
 
+
+authRouter.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+authRouter.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: `${process.env.CLIENT_URL}/login?error=auth_failed`,
+  }),
+  googleCallback
+);
 
 
 export default authRouter;

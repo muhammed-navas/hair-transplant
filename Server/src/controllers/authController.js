@@ -11,7 +11,6 @@ import {
 import { body } from "express-validator";
 
 
-
 export const signup = async (req, res, next) => {
   console.log(req.body,'body')
   try {
@@ -392,5 +391,69 @@ export const changePassword = async (req, res, next) => {
 
   } catch (error) {
     next(new CustomError('Error changing password', 500));
+  }
+};
+
+export const googleCallback = async (req, res, next) => {
+  try {
+    // User is authenticated via passport, user info is in req.user
+    const googleUser = req.user;
+
+    if (!googleUser || !googleUser.emails || !googleUser.emails[0]) {
+      return res.redirect(`${process.env.CLIENT_URL}/login?error=no_email`);
+    }
+
+    const email = googleUser.emails[0].value;
+    const firstName =
+      googleUser.name?.givenName ||
+      googleUser.displayName?.split(" ")[0] ||
+      "User";
+    const lastName =
+      googleUser.name?.familyName ||
+      googleUser.displayName?.split(" ").slice(1).join(" ") ||
+      "";
+
+    // Check if user already exists in database
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user if doesn't exist
+      user = new User({
+        firstName,
+        lastName,
+        email,
+        isVerified: true, // Google users are automatically verified
+        googleId: googleUser.id,
+        // No password needed for Google OAuth users
+      });
+      await user.save();
+    } else {
+      // Update existing user with Google ID if not present
+      if (!user.googleId) {
+        user.googleId = googleUser.id;
+        user.isVerified = true; // Ensure verified status
+        await user.save();
+      }
+    }
+
+    // Generate tokens using your existing functions
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
+
+    // Set refresh token as cookie (same as your login function)
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    // Redirect to frontend with success and access token
+    res.redirect(`${process.env.CLIENT_URL}?auth=success&token=${accessToken}`);
+  } catch (error) {
+    console.error("Google callback error:", error);
+    next(error);
+    // Still redirect to prevent hanging
+    res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
   }
 };

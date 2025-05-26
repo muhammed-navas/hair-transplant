@@ -457,3 +457,94 @@ export const addQuestion = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateUserData = async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, mobile, location } = req.body;
+
+    // Validation
+    if (!firstName || !lastName || !email) {
+      return res.status(400).json({
+        success: false,
+        message: "First name, last name, and email are required",
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid email address",
+      });
+    }
+
+    const existingUser = await User.findById(req.user.id);
+
+
+    if (!existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "user not found",
+      });
+    }
+
+    // Prepare update data
+    const updateData = {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.toLowerCase().trim(),
+      mobile: mobile ? mobile.trim() : "",
+      location: {
+        state: location?.state ? location.state.trim() : "",
+        area: location?.area ? location.area.trim() : "",
+      },
+    };
+
+    // Update user
+    const updatedUser = await User.findByIdAndUpdate(existingUser, updateData, {
+      new: true,
+      runValidators: true,
+    }).select("-password -otp -otpExpiry");
+
+
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+
+    // Handle validation errors
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((err) => err.message);
+      return res.status(400).json({
+        success: false,
+        message: "Validation error",
+        errors: messages,
+      });
+    }
+
+    // Handle duplicate key error (email)
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists",
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: "Server error while updating profile",
+    });
+  }
+}
