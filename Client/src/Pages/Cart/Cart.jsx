@@ -83,18 +83,21 @@ const CartItem = ({
         </button>
       </div>
       <span className="cart-item__price">${price}</span>
-      <button
-        onClick={() => onRemove(id)}
-        className="cart-item__button cart-item__button--remove"
-      >
-        <Trash2 className="cart-item__icon" />
-      </button>
+      <div>
+        <button
+          onClick={() => onRemove(id)}
+          className="cart-item__button cart-item__button--remove"
+        >
+          <Trash2 className="cart-item__icon" />
+        </button>
+        {stock === 0 && <div className="out-of-stock">out of stock</div>}
+      </div>
     </div>
   );
 };
 
 export const CartPage = () => {
-  const { allCartData, fetchCart ,totalprice} = useContext(ContextApi);
+  const { allCartData, fetchCart, totalPrice } = useContext(ContextApi);
   const [items, setItems] = useState([]);
   const axiosInstance = axiosInterceptorPage();
  const naviagte = useNavigate()
@@ -153,7 +156,7 @@ export const CartPage = () => {
   };
 
   const handlechangenavigate = () =>{
-    naviagte('/addressform')
+    naviagte("/checkout");
   }
 
   const shippingFee = 40;
@@ -162,13 +165,11 @@ export const CartPage = () => {
   return (
     <div className="cart-page">
       <div className="cart-container">
-       
-
         {items.length === 0 ? (
           <p className="cart-empty-message">Your cart is empty</p>
         ) : (
           <>
-          <h1 className="cart-title">Your Cart</h1> 
+            <h1 className="cart-title">Your Cart</h1>
             <div className="cart-header">
               <span>Product Name</span>
               <span>Quantity</span>
@@ -176,7 +177,7 @@ export const CartPage = () => {
               <span>Delete</span>
             </div>
 
-            {items?.map(item => (
+            {items?.map((item) => (
               <CartItem
                 key={item.id}
                 id={item.id}
@@ -198,10 +199,12 @@ export const CartPage = () => {
               </div>
               <div className="cart-summary__row cart-summary__row--total">
                 <span>Total:</span>
-                <span>${totalprice + shippingFee }</span>
+                <span>${totalPrice + shippingFee}</span>
               </div>
             </div>
-            <button onClick={handlechangenavigate} className="checkout-button">Checkout</button>
+            <button onClick={handlechangenavigate} className="checkout-button">
+              Checkout
+            </button>
           </>
         )}
       </div>

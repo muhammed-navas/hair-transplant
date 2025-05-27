@@ -17,6 +17,7 @@ import './app.scss'
 import { Toaster } from 'react-hot-toast';
 import AdminDashboard from './Pages/admin/AdminDashboard';
 import ProfilePage from './Pages/profile/Profile';
+import CheckoutPage from './Pages/Cart/CheckOut';
 function App() {
 
   const Header1 = () => {
@@ -115,6 +116,14 @@ function App() {
           element={
             <PageTransition>
               <AddressForm />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PageTransition>
+              <CheckoutPage />
             </PageTransition>
           }
         />

@@ -36,6 +36,7 @@ export const Apiprovider = ({ children }) => {
   const [allCartData, setAllCartData] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
   const [user, setUser] = useState({});
+  const [stock , setStock] = useState({});
 
   // const REACT_APP_API_DEFAULT = "https://trifolix-hair-transplant-3.onrender.com"
   const REACT_APP_API_DEFAULT = "http://localhost:5000";
@@ -49,7 +50,6 @@ export const Apiprovider = ({ children }) => {
     }
   }, []);
 
-  console.log(user,'user')
 
   const getUserData = async () => {
     try {
@@ -75,11 +75,17 @@ export const Apiprovider = ({ children }) => {
         setAllCartData(response.data.cartData.items);
         setTotalPrice(response.data.cartData.cartTotal);
         setCartLength(response.data.cartData.items.length);
+        const stock = response.data.cartData.items.map((item) => {
+        return {stock :item.stock ,
+          productID : item._id}  
+        })
+        setStock(stock)
       }
     } catch (error) {
       console.error(error);
     }
   };
+
 
   const fetchProducts = async () => {
     try {
@@ -111,13 +117,24 @@ export const Apiprovider = ({ children }) => {
 
   const handleAddToCart = async (productId, quantity = 1) => {
     try {
+      let a = null
+      const match = products.find((item) => {
+        if (item._id === productId) {
+          a = item.stock;
+          return true;
+        }
+        return false;
+      });
+      if (a === 0) {
+        return toast.error("Item is Out of Stock!", { position: "top-center" });
+      }
       const response = await axiosInstance.post(
         `${REACT_APP_API_DEFAULT}/api/user/addToCart`,
         { productId, quantity }
       );
       fetchCart();
       setAddedToCart(response.data);
-      console.log("Product added to cart:", response.data);
+      return toast.success("Item added to cart is success", { position: "top-center" });
     } catch (error) {
       console.error("Error adding product to cart:", error);
     }

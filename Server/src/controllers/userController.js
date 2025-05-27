@@ -322,6 +322,7 @@ export const addAddress = async (req, res, next) => {
       postcode,
       mobilePhone,
       landmark,
+      isAddress,
     } = req.body;
 
     if (
@@ -331,7 +332,7 @@ export const addAddress = async (req, res, next) => {
       !address ||
       !city ||
       !postcode ||
-      !mobilePhone
+      !mobilePhone 
     ) {
       return next(new CustomError("All fields required", 400));
     }

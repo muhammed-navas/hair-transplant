@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isAddressForm:{
+    type: Boolean,
+    default: false,
+  },
   otp: String,
   otpExpiry: {
     type: Date,
