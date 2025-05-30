@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { Homepage } from './Pages/Homepage/Homepage';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { QuestionnairePage } from './Pages/Questionnaire/QuestionnairePage/QuestionnairePage';
@@ -11,7 +10,6 @@ import { Login } from './Pages/Login/Login';
 import { Forgetpass } from './Pages/Forgetpass/Forgetpass';
 import { Changepass } from './Pages/Changepasspage/Changepass';
 import { ProductPage } from './Pages/Productdetails/Productdetails';
-import { axiosInterceptorPage } from './componets/Interceptor/interceptor';
 import { AddressForm } from './Pages/Addresspage/AddressForm';
 import './app.scss'
 import { Toaster } from 'react-hot-toast';
