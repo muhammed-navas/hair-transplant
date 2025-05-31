@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Modal from "../ui/Modal"
 import "./Products.scss"
+import AddProducts from "../ui/AddProduct"
 
 const Products = () => {
   const [products, setProducts] = useState([
@@ -111,17 +112,28 @@ const Products = () => {
                 <td>{product.price}</td>
                 <td>{product.category}</td>
                 <td>
-                  <span className={`status ${product.status}`}>{product.status}</span>
+                  <span className={`status ${product.status}`}>
+                    {product.status}
+                  </span>
                 </td>
                 <td>
                   <div className="actions">
-                    <button className="edit-btn" onClick={() => handleEditProduct(product)}>
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEditProduct(product)}
+                    >
                       Edit
                     </button>
-                    <button className={`toggle-btn ${product.status}`} onClick={() => handleToggleStatus(product.id)}>
+                    <button
+                      className={`toggle-btn ${product.status}`}
+                      onClick={() => handleToggleStatus(product.id)}
+                    >
                       {product.status === "active" ? "Disable" : "Enable"}
                     </button>
-                    <button className="delete-btn" onClick={() => handleDeleteProduct(product.id)}>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteProduct(product.id)}
+                    >
                       Delete
                     </button>
                   </div>
@@ -134,7 +146,7 @@ const Products = () => {
 
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <form onSubmit={handleSubmit} className="product-form">
+          {/* <form onSubmit={handleSubmit} className="product-form">
             <h3>{editingProduct ? "Edit Product" : "Add New Product"}</h3>
 
             <div className="form-group">
@@ -181,11 +193,14 @@ const Products = () => {
               </button>
               <button type="submit">{editingProduct ? "Update" : "Add"} Product</button>
             </div>
-          </form>
+          </form> */}
+          <AddProducts  />
         </Modal>
       )}
+
+      {/* {showModal && <AddProducts onClose={() => setShowModal(false)} />} */}
     </div>
-  )
+  );
 }
 
 export default Products

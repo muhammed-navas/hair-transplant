@@ -7,7 +7,6 @@ const DashboardHome = () => {
     { title: "Total Users", value: "1,234", icon: "👥", color: "#667eea" },
     { title: "Total Products", value: "567", icon: "📦", color: "#28a745" },
     { title: "Total Orders", value: "890", icon: "🛒", color: "#ffc107" },
-    { title: "Revenue", value: "$12,345", icon: "💰", color: "#dc3545" },
   ];
 
   return (
