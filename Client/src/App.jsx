@@ -16,8 +16,8 @@ import ProfilePage from "./Pages/profile/Profile";
 import CheckoutPage from "./Pages/Cart/CheckOut";
 import AdminLogin from "./admin/component/auth/Login";
 import { useState } from "react";
+import Dashboard from "./admin/dashboard/Dashboard";
 import "./app.scss";
-import DashboardHome from "./admin/page/DashboardHome";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -135,7 +135,7 @@ function App() {
             path="/admin"
             element={
               <PageTransition>
-                <DashboardHome setIsAuthenticated={setIsAuthenticated} />
+                <Dashboard setIsAuthenticated={setIsAuthenticated} />
               </PageTransition>
             }
           />
