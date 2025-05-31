@@ -22,7 +22,7 @@
     }
   }
   
-  .content {
+  .content-dashboard {
     padding: 20px;
     animation: fadeIn 0.5s ease-out;
   
@@ -33,46 +33,46 @@
   
 
   
-//   body {
-//     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-//     background-color: #f8f9fa;
-//     color: #333;
-//     line-height: 1.6;
-//   }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+  }
   
   
-//   // Global animations
-//   @keyframes fadeIn {
-//     from {
-//       opacity: 0;
-//       transform: translateY(20px);
-//     }
-//     to {
-//       opacity: 1;
-//       transform: translateY(0);
-//     }
-//   }
+  // Global animations
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   
-//   @keyframes slideIn {
-//     from {
-//       transform: translateX(-100%);
-//     }
-//     to {
-//       transform: translateX(0);
-//     }
-//   }
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
   
-//   @keyframes pulse {
-//     0%, 100% {
-//       transform: scale(1);
-//     }
-//     50% {
-//       transform: scale(1.05);
-//     }
-//   }
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
   
-//   // Responsive breakpoints
-//   $mobile: 768px;
-//   $tablet: 1024px;
-//   $desktop: 1200px;
+  // Responsive breakpoints
+  $mobile: 768px;
+  $tablet: 1024px;
+  $desktop: 1200px;
   

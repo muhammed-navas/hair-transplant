@@ -45,7 +45,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
           setSidebarOpen={setSidebarOpen}
           sidebarOpen={sidebarOpen}
         />
-        <div className="content">{renderContent()}</div>
+        <div className="content-dashboard">{renderContent()}</div>
       </div>
     </div>
   );
