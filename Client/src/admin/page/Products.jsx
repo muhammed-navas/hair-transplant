@@ -3,64 +3,103 @@ import Modal from "../ui/Modal"
 import "./Products.scss"
 import AddProducts from "../ui/AddProduct"
 
-const Products = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: "iPhone 14", price: "$999", status: "active", category: "Electronics" },
-    { id: 2, name: "MacBook Pro", price: "$1999", status: "active", category: "Electronics" },
-    { id: 3, name: "Nike Shoes", price: "$129", status: "inactive", category: "Fashion" },
-    { id: 4, name: "Coffee Mug", price: "$19", status: "active", category: "Home" },
-  ])
+const Products = ({ productAllDataList }) => {
+  // const [products, setProducts] = useState([
+  //   {
+  //     id: 1,
+  //     name: "iPhone 14",
+  //     price: "$999",
+  //     status: "active",
+  //     category: "Electronics",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "MacBook Pro",
+  //     price: "$1999",
+  //     status: "active",
+  //     category: "Electronics",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Nike Shoes",
+  //     price: "$129",
+  //     status: "inactive",
+  //     category: "Fashion",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Coffee Mug",
+  //     price: "$19",
+  //     status: "active",
+  //     category: "Home",
+  //   },
+  // ]);
+  const [products, setProducts] = useState(productAllDataList);
 
-  const [showModal, setShowModal] = useState(false)
-  const [editingProduct, setEditingProduct] = useState(null)
-  const [filters, setFilters] = useState({ name: "", status: "all" })
+  const [showModal, setShowModal] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [filters, setFilters] = useState({ name: "", status: "all" });
 
   const [formData, setFormData] = useState({
     name: "",
     price: "",
     category: "",
     status: "active",
-  })
+  });
 
   const handleAddProduct = () => {
-    setEditingProduct(null)
-    setFormData({ name: "", price: "", category: "", status: "active" })
-    setShowModal(true)
-  }
+    setEditingProduct(null);
+    setFormData({ name: "", price: "", category: "", status: "active" });
+    setShowModal(true);
+  };
 
   const handleEditProduct = (product) => {
-    setEditingProduct(product)
-    setFormData(product)
-    setShowModal(true)
-  }
+    setEditingProduct(product);
+    setFormData(product);
+    setShowModal(true);
+  };
 
   const handleDeleteProduct = (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
-      setProducts(products.filter((p) => p.id !== id))
+      setProducts(products.filter((p) => p.id !== id));
     }
-  }
+  };
 
   const handleToggleStatus = (id) => {
     setProducts(
-      products.map((p) => (p.id === id ? { ...p, status: p.status === "active" ? "inactive" : "active" } : p)),
-    )
-  }
+      products.map((p) =>
+        p._id === id
+          ? { ...p, status: p.status === "active" ? "inactive" : "active" }
+          : p
+      )
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (editingProduct) {
-      setProducts(products.map((p) => (p.id === editingProduct.id ? { ...formData, id: editingProduct.id } : p)))
+      setProducts(
+        products.map((p) =>
+          p.id === editingProduct.id
+            ? { ...formData, id: editingProduct.id }
+            : p
+        )
+      );
     } else {
-      setProducts([...products, { ...formData, id: Date.now() }])
+      setProducts([...products, { ...formData, id: Date.now() }]);
     }
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
 
   const filteredProducts = products.filter((product) => {
-    const nameMatch = product.name.toLowerCase().includes(filters.name.toLowerCase())
-    const statusMatch = filters.status === "all" || product.status === filters.status
-    return nameMatch && statusMatch
-  })
+    const nameMatch = product.name
+      .toLowerCase()
+      .includes(filters.name.toLowerCase());
+    const statusMatch =
+      filters.status === "all" || product.status === filters.status;
+    return nameMatch && statusMatch;
+  });
+  console.log(filteredProducts,'prodcct');
 
   return (
     <div className="products-page">
@@ -100,17 +139,15 @@ const Products = () => {
             <tr>
               <th>Product Name</th>
               <th>Price</th>
-              <th>Category</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredProducts.map((product) => (
-              <tr key={product.id}>
-                <td>{product.name}</td>
+              <tr key={product._id}>
+                <td>{product.name.toLowerCase()}</td>
                 <td>{product.price}</td>
-                <td>{product.category}</td>
                 <td>
                   <span className={`status ${product.status}`}>
                     {product.status}
@@ -126,7 +163,7 @@ const Products = () => {
                     </button>
                     <button
                       className={`toggle-btn ${product.status}`}
-                      onClick={() => handleToggleStatus(product.id)}
+                      onClick={() => handleToggleStatus(product._id)}
                     >
                       {product.status === "active" ? "Disable" : "Enable"}
                     </button>
@@ -194,13 +231,13 @@ const Products = () => {
               <button type="submit">{editingProduct ? "Update" : "Add"} Product</button>
             </div>
           </form> */}
-          <AddProducts  />
+          <AddProducts />
         </Modal>
       )}
 
       {/* {showModal && <AddProducts onClose={() => setShowModal(false)} />} */}
     </div>
   );
-}
+};
 
 export default Products

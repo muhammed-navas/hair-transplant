@@ -32,7 +32,7 @@ console.log(productAllDataList, "product data");
       case "dashboard":
         return <DashboardHome />;
       case "products":
-        return <Products />;
+        return <Products productAllDataList={productAllDataList} />;
       case "orders":
         return <Orders />;
       case "users":
