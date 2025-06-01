@@ -6,8 +6,7 @@ import CustomError from "../utils/customError.js";
 
 export const addProduct = async (req, res,next) => {
     try {
-        console.log("req.body:",req.body)
-        console.log("req.file:",req.file)
+
         const { name, description, price,stock, image } = req.body;
 
         if (!name || !description || !price || !stock) {
@@ -34,7 +33,7 @@ export const addProduct = async (req, res,next) => {
           );
         }
 
-        console.log("Final imageUrl:", imageUrl);
+
         
         const newProduct = new Product({
             name,

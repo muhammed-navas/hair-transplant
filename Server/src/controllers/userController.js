@@ -11,18 +11,15 @@ import User from "../models/User.js";
 
 export const getUserData = async (req, res) => {
   try {
-    console.log('1')
+
     const user = await User.findById(req.user.id)
     // .populate("cart")
     // .populate("orders")
     // .populate("address");
-    console.log('2')
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    console.log(user,'---user---')
 
     return res.status(200).json(user);
   } catch (error) {
@@ -40,7 +37,6 @@ export const getProductData = async (req, res) => {
     if (products.length === 0) {
       return res.status(404).json({ message: "No products found in database" });
     }
-    console.log(products);
 
     return res.status(200).json({
       message: "Products retrieved successfully",
@@ -159,7 +155,6 @@ export const getCartData = async (req, res, next) => {
       await cartData.save();
     }
 
-    console.log("-------cartData:-----", cartData);
 
     return res.status(200).json({
       success: true,
@@ -207,7 +202,6 @@ export const removeFromCart = async (req, res, next) => {
 };
 
 export const checking = async (req, res, next) => {
-  console.log(req.body, "-------------------");
 };
 
 export const increaseQuantity = async (req, res, next) => {
@@ -359,10 +353,9 @@ export const addAddress = async (req, res, next) => {
       otpExpiry,
     };
     req.session.pendingAddress = pendingAddress;
-    console.log("req.session.pendingAddress:", req.session.pendingAddress);
-    console.log("1");
+
     await sendOtpMob(mobilePhone, otp);
-    console.log("2");
+;
     res.status(200).json({
       success: true,
       message: "OTP sent successfully. Please verify to add the address",
@@ -374,11 +367,10 @@ export const addAddress = async (req, res, next) => {
 
 export const verifyOtp = async (req, res, next) => {
   try {
-    console.log("reached herererere");
-    console.log("req.body:", req.body);
+
     const user = req.user.id;
     const { otp } = req.body;
-    console.log("otp:", otp);
+
 
     if (!req.session.pendingAddress) {
       return next(
@@ -418,7 +410,7 @@ export const verifyOtp = async (req, res, next) => {
 
 export const resendOtp = async (req, res, next) => {
   try {
-    console.log("reached here");
+
     if (!req.session.pendingAddress) {
       return next(
         new CustomError("Session expired or no OTP request found", 400)
@@ -428,7 +420,7 @@ export const resendOtp = async (req, res, next) => {
     req.session.pendingAddress.otp = otp;
 
     req.session.pendingAddress.otpExpiry = otpExpiry;
-    console.log("req.pendingAddress.mobilePhone:", req.session.pendingAddress);
+
     await sendOtpMob(req.session.pendingAddress.mobilePhone, otp);
 
     res.status(200).json({

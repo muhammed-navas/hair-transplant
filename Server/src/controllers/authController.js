@@ -12,17 +12,16 @@ import { body } from "express-validator";
 
 
 export const signup = async (req, res, next) => {
-  console.log(req.body,'body')
+
   try {
     const { firstName, lastName, email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       if (!existingUser.isVerified) {
-        console.log("not verified but saved to db");
+
         const { otp, otpExpiry } = generateOtp();
         sendOtpToUser(email, otp);
-        console.log("otp:",otp);
         const hashedOtp = await bcrypt.hash(otp, 10);
         const hashedPassword = await bcrypt.hash(password, 10);
      existingUser.firstName=firstName,
@@ -46,7 +45,7 @@ export const signup = async (req, res, next) => {
     const { otp, otpExpiry } = generateOtp();
     const hashedOtp = await bcrypt.hash(otp, 10);
 
-    console.log("otp:", otp);
+
 
     const user = new User({
       firstName,
@@ -78,9 +77,9 @@ export const signup = async (req, res, next) => {
 export const verifyOtp = async (req, res, next) => {
   try {
     
-    console.log("req.body:",req.body);
+
     const { otp,email, isSignup } = req.body;
-    console.log("email",email);
+
     
     if (!otp) {
 
@@ -91,8 +90,7 @@ export const verifyOtp = async (req, res, next) => {
 
     
     const user = await User.findOne({email:email});
-    console.log("user:",user);
-    
+  
     if (!user) {
       
       return next(new CustomError("user not found", 404));
@@ -101,10 +99,9 @@ export const verifyOtp = async (req, res, next) => {
     if (user.otpExpiry < Date.now()) {
       return next(new CustomError("OTP has expired", 400));
     }
-    console.log("reached hereee");
+
     const isOtpValid=await bcrypt.compare(otp,user.otp);
-    console.log("isOtpValid:chehcking");
-    console.log("isOtpValid:",isOtpValid);
+
 
     if(!isOtpValid){
       return next(new CustomError("Invalid OTP",400));
@@ -206,7 +203,7 @@ export const refreshToken = async (req, res, next) => {
 export const login = async (req, res, next) => {
   
   try {
-    console.log("reached for login");
+
     const { email, password } = req.body;
 
     
@@ -216,7 +213,7 @@ export const login = async (req, res, next) => {
 
     
     const user = await User.findOne({ email }).select("+password");
-    console.log("user:",user);
+   
     
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return next(new CustomError("Invalid credentials", 401));
@@ -256,7 +253,8 @@ export const login = async (req, res, next) => {
 export const resendOtp = async (req, res, next) => {
   try {
     const { email } = req.body;
-    console.log("email:",email);
+  
+    
 
     if (!email) {
       return next(new CustomError('Email is required', 400));
@@ -290,7 +288,7 @@ export const resendOtp = async (req, res, next) => {
 
 
 export const logout = async (req, res, next) => {
-  console.log('first')
+
   try {
     res.clearCookie("refreshToken", {
       httpOnly: true,
@@ -308,11 +306,11 @@ export const logout = async (req, res, next) => {
 };
 
 export const forgotPassword =async(req,res,next)=>{
-  console.log(req.body,"body");
+ 
   
   try {
     const {forgetemail}=req.body;
-    console.log("forgetemail:",forgetemail);
+ 
 
     if (!forgetemail) {
       return next(new CustomError('Email is required', 400));
@@ -347,9 +345,7 @@ export const forgotPassword =async(req,res,next)=>{
 
 export const changePassword = async (req, res, next) => {
   try {
-    console.log("heyy");
-    
-    console.log("req.body:",req.body);
+
     
     const { password, forgetemail } = req.body;
 
